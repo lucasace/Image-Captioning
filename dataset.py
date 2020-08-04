@@ -17,7 +17,7 @@ class DataManager(object):
     self.cnn = cnn_model
     self.vocab_size=3000
     self.max_length=35
-    print("Preparing text data.....")
+    print("\nPreparing text data.....")
     self.prepare_text()
     if features_extraction:
       if self.cnn == 'inception':
@@ -26,7 +26,7 @@ class DataManager(object):
       elif self.cnn == 'vgg16':
         self.img_features = 512
         self.img_shape=(224,224)
-      print("Extracting Image Features ....")
+      print("\nExtracting Image Features ....")
       self.cnn_model()
       self.prepare_images()
   def load_image(self,image_path):
@@ -82,7 +82,7 @@ class DataManager(object):
     cap=open(self.captions_filename)
     self.train_captions=self.listing(cap)
     words={}
-    print("Preparing Vocabulary ...")
+    print("\nPreparing Vocabulary ...")
     for batch in tqdm(self.train_captions):
       path,sentence = batch
       for w in nltk.tokenize.word_tokenize(sentence.lower()):
