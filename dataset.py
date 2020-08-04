@@ -1,3 +1,13 @@
+import nltk
+from tqdm import tqdm
+import tensorflow as tf
+import os
+import cv2
+import matplotlib.pyplot as plt
+nltk.download('punkt')
+import string
+from sklearn.utils import shuffle
+import numpy as np
 class DataManager(object):
   def __init__(self,cnn_model='inception',captions_filename='Flickr8k.token.txt',IMAGE_FOLDER='Flicker8k_Dataset',features_extraction=False):
     self.captions_filename = captions_filename
@@ -35,7 +45,7 @@ class DataManager(object):
     self.model_new = tf.keras.models.Model(new_input, hidden_layer)
   def prepare_images(self):
     train_captions = np.array([i[0] for i in self.train_captions])
-    print(train_captions)
+    train_captions=sorted(set(train_captions))
     image_dataset = tf.data.Dataset.from_tensor_slices(train_captions)
     image_dataset = image_dataset.map(self.load_image, num_parallel_calls=tf.data.experimental.AUTOTUNE).batch(16)# Feel free to change batch_size according to your system configuration
     for path,img in tqdm(image_dataset):
@@ -115,4 +125,5 @@ class DataManager(object):
       caption_masks[:caption_ix_len] = 1.0
       path_ixing_masks.append((path,caption_ixing,caption_masks))
     self.text = np.array(path_ixing_masks)
-dataset=DataManager(features_extraction=True)
+if __name__=='main':
+  dataset=DataManager(features_extraction=True)
