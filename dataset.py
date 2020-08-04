@@ -117,7 +117,7 @@ class DataManager(object):
     return word_idxs
   def prepare_text(self):
     self.preprocess_captions()
-    path=[]
+    image_path=[]
     ixing=[]
     masks=[]
     for batch in tqdm(self.train_captions):
@@ -129,10 +129,10 @@ class DataManager(object):
       caption_ix_len = len(caption_ix)
       caption_ixing[:caption_ix_len] = np.array(caption_ix)
       caption_masks[:caption_ix_len] = 1.0
-      path.append(path)
+      image_path.append(path)
       ixing.append(caption_ixing)
       masks.append(caption_masks)
-    self.path = np.array(path)
+    self.path = np.array(image_path)
     self.ixing=np.array(ixing)
     self.masks=np.array(masks)
 if __name__=='main':
