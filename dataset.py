@@ -9,15 +9,17 @@ import string
 from sklearn.utils import shuffle
 import numpy as np
 class DataManager(object):
-  def __init__(self,cnn_model='inception',captions_filename='Flickr8k.token.txt',IMAGE_FOLDER='Flicker8k_Dataset',features_extraction=False):
+  def __init__(self,cnn_model='inception',captions_filename='Flickr8k.token.txt',IMAGE_FOLDER='Flicker8k_Dataset',features_extraction=False,batch_size=128,buffer_size=1000):
+    self.BATCH_SIZE = batch_size
+    self.BUFFER_SIZE = buffer_size
     self.captions_filename = captions_filename
     self.image_folder = IMAGE_FOLDER
-    print("Extracting Image Names ....")
+    print("\n\nExtracting Image Names ....")
     self.image_ids= [i for i in tqdm(os.listdir(self.image_folder))]
     self.cnn = cnn_model
     self.vocab_size=3000
     self.max_length=35
-    print("\nPreparing text data.....")
+    print("\n\nPreparing text data.....")
     self.prepare_text()
     if features_extraction:
       if self.cnn == 'inception':
@@ -117,7 +119,7 @@ class DataManager(object):
     return word_idxs
   def prepare_text(self):
     self.preprocess_captions()
-    image_path=[]
+    image_file_paths=[]
     ixing=[]
     masks=[]
     for batch in tqdm(self.train_captions):
