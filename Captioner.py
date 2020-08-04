@@ -1,4 +1,5 @@
 import tensorflow as tf
+from sklearn.model_selection import train_test_split
 class Captioner(DataManager):
   def map_func(self,image_name,sentence,mask):
     img_tensor = np.load(image_name.decode('utf-8')+'.npy')
