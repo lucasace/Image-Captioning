@@ -13,6 +13,18 @@ class DataManager(object):
   def __init__(self,cnn_model='inception',captions_filename='Flickr8k.token.txt',
                IMAGE_FOLDER='Flicker8k_Dataset',features_extraction=False,
                batch_size=128,buffer_size=1000):
+    """
+    Args:
+    cnn_model (str) (default:'inception'): Transfer-Learning Model for Feature-Extraction
+    captions_filename (str) (default:'Flickr8k.token.txt'): Location of caption data
+    IMAGE_FOLDER (str) (default:'Flicker8k_Dataset'): Location of Image_Dataset
+    features_extraction (bool) (default:'False'): Whether the features from the images need to be extracted again
+                                                  When running the first time set to True
+                                                  If features once extracted change back to False so as 
+                                                  to save time and memory
+    batch_size (int) (default:128): Batch_size of the dataset
+    buffer_size (int) (default:1000): Shuffle buffer size for train_dataset  
+    """
     self.BATCH_SIZE = batch_size
     self.BUFFER_SIZE = buffer_size
     self.captions_filename = captions_filename
@@ -23,6 +35,7 @@ class DataManager(object):
     self.max_length=35
     print("\n\nPreparing text data.....")
     self.prepare_text()
+    self.cnn_model()
     if features_extraction:
       if self.cnn == 'inception':
         self.img_features = 2048
@@ -31,7 +44,6 @@ class DataManager(object):
         self.img_features = 512
         self.img_shape=(224,224)
       print("\nExtracting Image Features ....")
-      self.cnn_model()
       self.prepare_images()
     self.build_dataset()
   def load_image(self,image_path):
