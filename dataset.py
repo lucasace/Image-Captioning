@@ -84,11 +84,15 @@ class DataManager(object):
     self.train_captions=self.listing(cap)
     words={}
     print("\nPreparing Vocabulary ...")
+    max=0
     for batch in tqdm(self.train_captions):
       path,sentence = batch
+      if len(sentence.split())>=max:
+        max=len(sentence.split())
       for w in nltk.tokenize.word_tokenize(sentence.lower()):
         words[w] = words.get(w, 0) + 1.0
     assert self.vocab_size<=len(words.keys())
+    self.max_length = max +2
     word_counts = sorted(list(words.items()),
                          key=lambda x: x[1],
                          reverse=True)
@@ -106,7 +110,7 @@ class DataManager(object):
     self.word2ix['<end>'] = max+1
     self.ix2word={self.word2ix[i]:i for i in self.word2ix}
     #print(len(self.words))
-    self.vocab_size= len(self.words)
+    self.vocab_size= len(self.words)+1
   def ixing(self,caption):
     words=caption.split()
     word_idxs = []
