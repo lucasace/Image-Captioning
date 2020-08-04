@@ -12,10 +12,12 @@ class DataManager(object):
   def __init__(self,cnn_model='inception',captions_filename='Flickr8k.token.txt',IMAGE_FOLDER='Flicker8k_Dataset',features_extraction=False):
     self.captions_filename = captions_filename
     self.image_folder = IMAGE_FOLDER
+    print("Extracting Image Names ....")
     self.image_ids= [i for i in tqdm(os.listdir(self.image_folder))]
     self.cnn = cnn_model
     self.vocab_size=3000
     self.max_length=35
+    print("Preparing text data.....")
     self.prepare_text()
     if features_extraction:
       if self.cnn == 'inception':
@@ -24,6 +26,7 @@ class DataManager(object):
       elif self.cnn == 'vgg16':
         self.img_features = 512
         self.img_shape=(224,224)
+      print("Extracting Image Features ....")
       self.cnn_model()
       self.prepare_images()
   def load_image(self,image_path):
@@ -79,6 +82,7 @@ class DataManager(object):
     cap=open(self.captions_filename)
     self.train_captions=self.listing(cap)
     words={}
+    print("Preparing Vocabulary ...")
     for batch in tqdm(self.train_captions):
       path,sentence = batch
       for w in nltk.tokenize.word_tokenize(sentence.lower()):
