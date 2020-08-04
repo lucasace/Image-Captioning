@@ -14,7 +14,6 @@ class DataManager(object):
     self.BUFFER_SIZE = buffer_size
     self.captions_filename = captions_filename
     self.image_folder = IMAGE_FOLDER
-    print("\n\nExtracting Image Names ....")
     self.image_ids= [i for i in tqdm(os.listdir(self.image_folder))]
     self.cnn = cnn_model
     self.vocab_size=3000
@@ -119,7 +118,7 @@ class DataManager(object):
     return word_idxs
   def prepare_text(self):
     self.preprocess_captions()
-    image_file_paths=[]
+    image_path=[]
     ixing=[]
     masks=[]
     for batch in tqdm(self.train_captions):
