@@ -1,6 +1,6 @@
 import tensorflow as tf
 class CNN_ENCODER(tf.keras.Model):
-  def __init__(self,embedding_dim,image_features,max_length):
+  def __init__(self,embedding_dim,image_features):
     super(CNN_ENCODER,self).__init__()
     self.fc=tf.keras.layers.Dense(embedding_dim,input_shape=(image_features,))
     self.drop=tf.keras.layers.Dropout(0.5)

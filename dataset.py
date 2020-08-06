@@ -10,21 +10,20 @@ import string
 from sklearn.utils import shuffle
 import numpy as np
 class DataManager(object):
+  """
+    Args:\n
+    cnn_model (str) (default:'inception'): Transfer-Learning Model for Feature-Extraction\n
+    captions_filename (str) (default:'Flickr8k.token.txt'): Location of caption data\n
+    IMAGE_FOLDER (str) (default:'Flicker8k_Dataset'): Location of Image_Dataset\n
+    features_extraction (bool) (default:'False'): Whether the features from the images need to be 
+    extracted again.When running the first time set to True,If features once extracted 
+    change back to False so as to save time and memory\n
+    batch_size (int) (default:128): Batch_size of the dataset\n
+    buffer_size (int) (default:1000): Shuffle buffer size for train_dataset  
+  """
   def __init__(self,cnn_model='inception',captions_filename='Flickr8k.token.txt',
                IMAGE_FOLDER='Flicker8k_Dataset',features_extraction=False,
                batch_size=128,buffer_size=1000):
-    """
-    Args:
-    cnn_model (str) (default:'inception'): Transfer-Learning Model for Feature-Extraction
-    captions_filename (str) (default:'Flickr8k.token.txt'): Location of caption data
-    IMAGE_FOLDER (str) (default:'Flicker8k_Dataset'): Location of Image_Dataset
-    features_extraction (bool) (default:'False'): Whether the features from the images need to be extracted again
-                                                  When running the first time set to True
-                                                  If features once extracted change back to False so as 
-                                                  to save time and memory
-    batch_size (int) (default:128): Batch_size of the dataset
-    buffer_size (int) (default:1000): Shuffle buffer size for train_dataset  
-    """
     self.BATCH_SIZE = batch_size
     self.BUFFER_SIZE = buffer_size
     self.captions_filename = captions_filename
@@ -35,14 +34,14 @@ class DataManager(object):
     self.max_length=35
     print("\n\nPreparing text data.....")
     self.prepare_text()
+    if self.cnn == 'inception':
+      self.img_features = 2048
+      self.img_shape = (299,299)
+    elif self.cnn == 'vgg16':
+      self.img_features = 512
+      self.img_shape=(224,224)
     self.cnn_model()
     if features_extraction:
-      if self.cnn == 'inception':
-        self.img_features = 2048
-        self.img_shape = (299,299)
-      elif self.cnn == 'vgg16':
-        self.img_features = 512
-        self.img_shape=(224,224)
       print("\nExtracting Image Features ....")
       self.prepare_images()
     self.build_dataset()
@@ -101,8 +100,12 @@ class DataManager(object):
     words={}
     print("\nPreparing Vocabulary ...")
     max=0
+    self.caption_dict={}
     for batch in tqdm(self.train_captions):
       path,sentence = batch
+      if path not in self.caption_dict:
+        self.caption_dict[path]=[]
+      self.caption_dict[path].append(sentence)
       if len(sentence.split())>=max:
         max=len(sentence.split())
       for w in nltk.tokenize.word_tokenize(sentence.lower()):
@@ -156,10 +159,12 @@ class DataManager(object):
     self.path = np.array(image_path)
     self.ixing=np.array(ixing)
     self.masks=np.array(masks)
-  def map_func(self,image_name,sentence,mask):
+  def map_func(self,image_name,sentence,mask,return_name=False):
     img_tensor = np.load(image_name.decode('utf-8')+'.npy')
     sentence = tf.cast(sentence,tf.int32)
     mask = tf.cast(mask,tf.float32)
+    if return_name:
+      return image_name,img_tensor,sentence,mask
     return img_tensor, sentence,mask
   def build_dataset(self):
     train_path,val_path,train_ixing,val_ixing,train_masks,val_masks\
@@ -175,18 +180,18 @@ class DataManager(object):
                        test_size=0.25,
                        random_state=0)
     self.train_steps = len(train_path)//self.BATCH_SIZE
-    self.val_steps = len(val_path)//1
+    self.val_steps = len(val_path)// self.BATCH_SIZE
     train_dataset = tf.data.Dataset.from_tensor_slices((train_path, train_ixing,train_masks))
     val_dataset = tf.data.Dataset.from_tensor_slices((val_path, val_ixing,val_masks))
     test_dataset = tf.data.Dataset.from_tensor_slices((test_path, test_ixing,test_masks))
     train_dataset = train_dataset.map(lambda item1, item2,item3: tf.numpy_function(
-        self.map_func, [item1, item2,item3], [tf.float32, tf.int32,tf.float32]),
+        self.map_func, [item1, item2,item3,False], [tf.float32, tf.int32,tf.float32]),
         num_parallel_calls=tf.data.experimental.AUTOTUNE)
     val_dataset = val_dataset.map(lambda item1, item2,item3: tf.numpy_function(
-        self.map_func, [item1, item2,item3], [tf.float32, tf.int32,tf.float32]),
+        self.map_func, [item1, item2,item3,False], [tf.float32, tf.int32,tf.float32]),
         num_parallel_calls=tf.data.experimental.AUTOTUNE)
-    test_dataset = test_dataset.map(lambda item1, item2,item3: tf.numpy_function(
-        self.map_func, [item1, item2,item3], [tf.float32, tf.int32,tf.float32]),
+    test_dataset = test_dataset.map(lambda item1,item2,item3: tf.numpy_function(
+        self.map_func, [item1, item2,item3,True], [tf.string,tf.float32, tf.int32,tf.float32]),
         num_parallel_calls=tf.data.experimental.AUTOTUNE)
     self.train_dataset = train_dataset.shuffle(self.BUFFER_SIZE).batch(self.BATCH_SIZE)\
     .prefetch(buffer_size=tf.data.experimental.AUTOTUNE)
