@@ -6,9 +6,10 @@
 # URL: <http://nltk.org/>
 # For license information, see LICENSE.TXT
 
-
+import nltk
 from nltk.stem.porter import PorterStemmer
 from nltk.corpus import wordnet
+nltk.download('wordnet')
 from itertools import chain, product
 
 
