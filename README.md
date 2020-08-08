@@ -39,8 +39,8 @@ python3 main.py --type test --checkpoint_dir <checkpointdir> --cnnmodel <cnnmode
     * Note these are inception checkpoints and not for vgg16. Vgg16 weights will be available shortly
  * captionfile is required to make the vocabulary
  
- ## custom dataset
-  if you want to train it on a custom data set kindly make changes in the dataset.py folder to make it suitable for your dataset
+ ## Custom dataset
+  if you want to train it on a custom dataset kindly make changes in the dataset.py folder to make it suitable for your dataset
   
  ## Results
  |Model Type|CNN_Model|Bleu_1|Bleu_2|Bleu_3|Bleu_4|Metoer|
