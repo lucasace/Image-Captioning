@@ -43,7 +43,7 @@ python3 main.py --type test --checkpoint_dir <checkpointdir> --cnnmodel <cnnmode
   if you want to train it on a custom dataset kindly make changes in the dataset.py folder to make it suitable for your dataset
   
  ## Results
- |Model Type|CNN_Model|Bleu_1|Bleu_2|Bleu_3|Bleu_4|Metoer|
+ |Model Type|CNN_Model|Bleu_1|Bleu_2|Bleu_3|Bleu_4|Meteor|
  | --- | --- | --- | --- | --- | --- | --- |
  |Encoder-Decoder|Inception_V3|60.12|51.1|48.13|39.5|25.8|
  | |VGG16|58.46|49.87 |47.50|39.37|26.32|
