@@ -33,7 +33,7 @@ python3 main.py --type test --checkpoint_dir <checkpointdir> --cnnmodel <cnnmode
  ## I just want to caption
  
  ```bash
- python3 main.py --type caption --checkpoint_dir <checkpointdir> --cnnmodel <cnnmodel> --caption_file <location to token,txt>
+ python3 main.py --type caption --checkpoint_dir <checkpointdir> --cnnmodel <cnnmodel> --caption_file <location to token,txt> --to_caption <image file path to caption>
  ```
  * Download the checkpoints from ![here](https://drive.google.com/drive/u/1/folders/1-VJXewV_Da9TNLrNpwORY5EY0_slxT1g)
     * Note these are inception checkpoints and for vgg16 download from ![here](https://drive.google.com/drive/u/1/folders/1o020lkAFADNs_4vGJKAxGl_-NP41VHyN) 
