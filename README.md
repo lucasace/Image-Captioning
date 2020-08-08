@@ -53,6 +53,11 @@ python3 main.py --type test --checkpoint_dir <checkpointdir> --cnnmodel <cnnmode
  * ![2](results/index.png)
  * ![3](results/dogfrisbee.png)
  
+ ## Things to Do
+ - [ ] beam search
+ - [ ] Image Captioning using Soft and Hard Attention
+ - [ ] Image Captioning using Adversarial Training
+ 
  ## References
  * O. Vinyals, A. Toshev, S. Bengio and D. Erhan, "Show and tell: A neural image caption generator," 2015 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Boston, MA, 2015, pp. 3156-3164, doi: 10.1109/CVPR.2015.7298935.
  * Tensorflow documentation on Image Captioning
