@@ -11,7 +11,7 @@
 ## I want to train the model
 To train the model simply run
 ```bash
-python3 main.py --type train --checkpoint_dir <checkpointdir> --cnnmodel <cnnmodel> --image_folder <imagefolder location> --caption_file <location to token,txt> --feature_extraction <True or False> -- batch_size <batchsize>
+python3 main.py --type train --checkpoint_dir <checkpointdir> --cnnmodel <cnnmodel> --image_folder <imagefolder location> --caption_file <location to token,txt> --feature_extraction <True or False>
 ```
 * The checkpoint dir is the place where your model checkpoints are going to be saved.
 * cnnmodel is either inception or vgg16,default is inception
