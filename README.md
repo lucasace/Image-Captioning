@@ -46,7 +46,7 @@ python3 main.py --type test --checkpoint_dir <checkpointdir> --cnnmodel <cnnmode
  |Model Type|CNN_Model|Bleu_1|Bleu_2|Bleu_3|Bleu_4|Metoer|
  | --- | --- | --- | --- | --- | --- | --- |
  |Encoder-Decoder|Inception_V3|60.12|51.1|48.13|39.5|25.8|
- | |VGG16| | | | | |
+ | |VGG16|58.46|49.87 |47.50|39.37|26.32|
  
  Here are some of the results:
  
