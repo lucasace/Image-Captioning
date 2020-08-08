@@ -38,7 +38,7 @@ class DataManager(object):
       self.img_features = 2048
       self.img_shape = (299,299)
     elif self.cnn == 'vgg16':
-      self.img_features = 512
+      self.img_features = 4096
       self.img_shape=(224,224)
     self.cnn_model()
     if features_extraction:
@@ -48,7 +48,7 @@ class DataManager(object):
   def load_image(self,image_path):
     img = tf.io.read_file(image_path)
     img = tf.image.decode_jpeg(img, channels=3)
-    img = tf.image.resize(img, (299, 299))
+    img = tf.image.resize(img, self.img_shape)
     if self.cnn=='inception':
       x = tf.keras.applications.inception_v3.preprocess_input(img)
     elif self.cnn=='vgg16':

@@ -1,5 +1,16 @@
 import tensorflow as tf
 class Trainer(object):
+  """
+  Args:
+    data: from DataManager
+    encoder: encoder model 
+    decoder: decoder model
+    start_epoch: 0 if training for the first time else from restored checkpoint
+    loss: loss function
+    optimizer: optimizer
+    cpkt_manager: for saving checkpoints
+    nb_epochs default = 50: total number of epochs
+  """ 
   def __init__(self,data,encoder,decoder,start_epoch,cpkt,optimizer,loss,nb_epochs = 50):
     self.data = data
     self.loss = loss
@@ -44,9 +55,11 @@ class Trainer(object):
     features = self.encoder(img_tensor)
     for i in range(self.data.max_length):
       predictions = self.decoder(dec_input, features,is_train=False)
-      predicted_id = tf.math.argmax(predictions, 1).numpy()
+      predicted_id = tf.math.argmax(predictions, 1).numpy()[0]
       result.append(self.data.ix2word[predicted_id])
       if self.data.ix2word[predicted_id] == '<end>':
         return ' '.join(result)
       dec_input = tf.expand_dims([predicted_id], 0)
     return ' '.join(result)
+
+      

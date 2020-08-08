@@ -54,4 +54,5 @@ python3 main.py --type test --checkpoint_dir <checkpointdir> --cnnmodel <cnnmode
  * O. Vinyals, A. Toshev, S. Bengio and D. Erhan, "Show and tell: A neural image caption generator," 2015 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Boston, MA, 2015, pp. 3156-3164, doi: 10.1109/CVPR.2015.7298935.
  * Tensorflow documentation on Image Captioning
  * ![Machine Learning Mastery](https://machinelearningmastery.com/develop-a-deep-learning-caption-generation-model-in-python/) for dataset
+ * nltk documentation for meteor score
  * ![RNN lecture by Standford University](https://www.youtube.com/watch?v=6niqTuYFZLQ&t=1731s)

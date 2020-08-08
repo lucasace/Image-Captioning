@@ -1,5 +1,10 @@
 import tensorflow as tf
 class CNN_ENCODER(tf.keras.Model):
+  """
+  Args:
+    embedding_dim: embedding_dim
+    image_features: image features value
+  """
   def __init__(self,embedding_dim,image_features):
     super(CNN_ENCODER,self).__init__()
     self.fc=tf.keras.layers.Dense(embedding_dim,input_shape=(image_features,))
@@ -13,6 +18,13 @@ class CNN_ENCODER(tf.keras.Model):
     x = self.repeat_vector(x)
     return x
 class RNN_DECODER(tf.keras.Model):
+  """
+  Args:
+    embedding_dim: embedding_dim
+    lstm_units: lstm units for LSTM
+    vocab_size: vocabulary size
+    max_length: maximum length of a caption
+  """   
   def __init__(self,embedding_dim,lstm_units,vocab_size,max_length):
     super(RNN_DECODER,self).__init__()
     self.embedding = tf.keras.layers.Embedding(vocab_size,embedding_dim,input_length=max_length)
