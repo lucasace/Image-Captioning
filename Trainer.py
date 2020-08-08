@@ -35,7 +35,7 @@ class Trainer(object):
         loss += self.loss_function(sentence[:,i],predictions,masks[:,i])
         dec_input = tf.expand_dims(sentence[:, i], 1)      
     total_loss = (loss / int(sentence.shape[1]))
-    train_variables = encoder.trainable_variables+decoder.trainable_variables
+    train_variables = self.encoder.trainable_variables+self.decoder.trainable_variables
     gradients = tape.gradient(loss, train_variables)
     self.optimizer.apply_gradients(zip(gradients,train_variables))
     return loss, total_loss
