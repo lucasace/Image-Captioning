@@ -49,6 +49,9 @@ python3 main.py --type test --checkpoint_dir <checkpointdir> --cnnmodel <cnnmode
  | |VGG16|58.46|49.87 |47.50|39.37|26.32|
  
  Here are some of the results:
+ * ![1](results/baseball.png)
+ * ![2](results/index.png)
+ * ![3](results/dogfrisbee.png)
  
  ## References
  * O. Vinyals, A. Toshev, S. Bengio and D. Erhan, "Show and tell: A neural image caption generator," 2015 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Boston, MA, 2015, pp. 3156-3164, doi: 10.1109/CVPR.2015.7298935.
