@@ -2,6 +2,8 @@ from nltk.translate.bleu_score import corpus_bleu
 from meteor import meteor_score
 from tqdm import tqdm
 import numpy as np
+from Trainer import Trainer
+import tensorflow as tf
 import matplotlib.pyplot as plt
 class Captioner(Trainer):
   """
