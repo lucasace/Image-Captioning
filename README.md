@@ -27,7 +27,7 @@ python3 main.py --type train --checkpoint_dir <checkpointdir> --cnnmodel <cnnmod
  ```bash
 python3 main.py --type test --checkpoint_dir <checkpointdir> --cnnmodel <cnnmodel> --image_folder <imagefolder location> --caption_file <location to token,txt> --feature_extraction <True or False>
 ```
-* Download the checkpoints from ![here](https://drive.google.com/drive/u/1/folders/1-VJXewV_Da9TNLrNpwORY5EY0_slxT1g) if your cnn_model is inception ,if your cnn_model is vgg 16 download from ![here](https://drive.google.com/drive/u/1/folders/1o020lkAFADNs_4vGJKAxGl_-NP41VHyN) or you can use your own trained checkpoints
+* Download the checkpoints from [here](https://drive.google.com/drive/u/1/folders/1-VJXewV_Da9TNLrNpwORY5EY0_slxT1g) if your cnn_model is inception ,if your cnn_model is vgg 16 download from [here](https://drive.google.com/drive/u/1/folders/1o020lkAFADNs_4vGJKAxGl_-NP41VHyN) or you can use your own trained checkpoints
 * All arguments are same as in training model
  
  ## I just want to caption
