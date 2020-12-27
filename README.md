@@ -11,7 +11,7 @@
 ## I want to train the model
 To train the model simply run
 ```bash
-python3 main.py --type train --checkpoint_dir <checkpointdir> --cnnmodel <cnnmodel> --image_folder <imagefolder location> --caption_file <location to token,txt> --feature_extraction <True or False>
+python3 main.py --type train --checkpoint_dir <checkpointdir> --cnnmodel <cnnmodel> --image_folder <imagefolder location> --caption_file <location to token.txt> --feature_extraction <True or False>
 ```
 * The checkpoint dir is the place where your model checkpoints are going to be saved.
 * cnnmodel is either inception or vgg16,default is inception
@@ -20,7 +20,7 @@ python3 main.py --type train --checkpoint_dir <checkpointdir> --cnnmodel <cnnmod
 * feature_extraction - True or False,default is True
   * True if you havent extracted the image features
   * False if you have already extracted the image features
-  This is saves time and memory when training again 
+  This saves time and memory when training again 
  * batch_size batch_size of training and validation default is 128
  
  ## Testing the model
@@ -57,6 +57,12 @@ python3 main.py --type test --checkpoint_dir <checkpointdir> --cnnmodel <cnnmode
  - [ ] beam search
  - [ ] Image Captioning using Soft and Hard Attention
  - [ ] Image Captioning using Adversarial Training
+ 
+ ## Contributions
+
+ Any contributions are welcome
+ 
+ If there is any issue with the model or errors in the program, feel free to raise a issue or set up a PR.
  
  ## References
  * O. Vinyals, A. Toshev, S. Bengio and D. Erhan, "Show and tell: A neural image caption generator," 2015 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), Boston, MA, 2015, pp. 3156-3164, doi: 10.1109/CVPR.2015.7298935.
